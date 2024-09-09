@@ -9,6 +9,6 @@ Users can search animals by their name to find information like their habitats, 
 
 # Contributors
 * Gordon Tan - [GLeTan](https://github.com/GLeTan)
-* Ricardo Nunex - []()
+* Ricardo Nunex - [ItzRikk](https://github.com/ItzRikk)
 * Arturo Cesareo-Zacarias - [rumkkee](https://github.com/rumkkee)
 * Anthony Guido - [anthony-g-07](https://github.com/anthony-g-07)
