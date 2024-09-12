@@ -5,6 +5,12 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+import {openDatabase, openUserTable, insertUserData, deleteUserData, logUserData} from '@/app/database/userDB';
+import { useEffect } from 'react';
+import * as SQLite from 'expo-sqlite';
+
+
+
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
