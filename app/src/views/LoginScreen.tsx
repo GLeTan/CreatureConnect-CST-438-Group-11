@@ -3,12 +3,12 @@ import { TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useNavigation } from '@react-navigation/native';
-import { checkUserByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
+import { checkUserByUsername, getPasswordByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
 import * as SQLite from 'expo-sqlite';
 
 export default function LoginScreen() {
-  const [username, setUsername] = useState('csumbuser');
-  const [password, setPassword] = useState('admin');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
   const handleLogin = () => {
@@ -20,8 +20,6 @@ export default function LoginScreen() {
     const database = openDatabase();
     openUserTable(database);
     checkUsername(database);
-
-    
   };
 
   const checkUsername = async (database: Promise<SQLite.SQLiteDatabase | null>) => {
@@ -29,11 +27,21 @@ export default function LoginScreen() {
     const newName = await checkUserByUsername(database, username);
 
     if (newName) {
+      checkPassword(database)
+    } else {
+      Alert.alert('Error', 'Username not found');
+    }
+  };
+
+  const checkPassword = async (database: Promise<SQLite.SQLiteDatabase | null>) => {
+    const dbPassword = await getPasswordByUsername(database, username);
+
+    if (dbPassword === password) {
       Alert.alert('Success', 'Login successful!', [
         { text: 'OK', onPress: () => navigation.navigate('Home') }
       ]);
     } else {
-      Alert.alert('Error', 'Username not found');
+      Alert.alert('Error', 'Password does not match');
     }
   };
 
