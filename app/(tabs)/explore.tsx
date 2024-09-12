@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { TextInput, Button, StyleSheet, Alert, View } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import * as SQLite from 'expo-sqlite';
+import { insertUserData, logUserByUsername, openDatabase, openUserTable } from '../database/userDB';
 
 export default function SignupScreen() {
   const [name, setName] = useState('');
@@ -14,6 +16,13 @@ export default function SignupScreen() {
       return;
     }
     // Implement signup logic here, e.g., create user account
+    const database = openDatabase();
+    openUserTable(database);
+    insertUserData(database, username, password);
+    logUserByUsername(database, username);
+    
+
+
     Alert.alert('Success', 'Signup successful!');
   };
 
