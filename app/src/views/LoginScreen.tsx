@@ -3,6 +3,8 @@ import { TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useNavigation } from '@react-navigation/native';
+import { checkUserByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
+import * as SQLite from 'expo-sqlite';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('csumbuser');
@@ -15,9 +17,24 @@ export default function LoginScreen() {
       return;
     }
 
-    Alert.alert('Success', 'Login successful!', [
-      { text: 'OK', onPress: () => navigation.navigate('Home') }
-    ]);
+    const database = openDatabase();
+    openUserTable(database);
+    checkUsername(database);
+
+    
+  };
+
+  const checkUsername = async (database: Promise<SQLite.SQLiteDatabase | null>) => {
+    // Check that username is not already taken
+    const newName = await checkUserByUsername(database, username);
+
+    if (newName) {
+      Alert.alert('Success', 'Login successful!', [
+        { text: 'OK', onPress: () => navigation.navigate('Home') }
+      ]);
+    } else {
+      Alert.alert('Error', 'Username not found');
+    }
   };
 
   return (

@@ -99,3 +99,21 @@ export const logUserByUsername = async (databasePromise: Promise<SQLite.SQLiteDa
         console.error('Database is null, table not opened');
     }
 };
+
+export const checkUserByUsername = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, username: string): Promise<string | null> => {
+    const database = await databasePromise;
+
+    if (database) {
+        const firstRow = await database.getFirstAsync('SELECT * FROM user WHERE username = $value', {$value: username}) as UserType;
+        if (firstRow) {
+            console.log(firstRow.id, firstRow.username, firstRow.password);
+            console.log("good data");
+            return firstRow.username;
+        } else {
+            return null;
+        }
+    } else {
+        console.error('Database is null, table not opened');
+        return null;
+    }
+};
