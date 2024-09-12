@@ -9,6 +9,12 @@ import Search from '../src/views/Search';
 
 const Stack = createStackNavigator();
 
+import {openDatabase, openUserTable, insertUserData, deleteUserData, logUserData} from '@/app/database/userDB';
+import { useEffect } from 'react';
+import * as SQLite from 'expo-sqlite';
+
+
+
 export default function App() {
   return (
     <NavigationContainer independent={true}>
