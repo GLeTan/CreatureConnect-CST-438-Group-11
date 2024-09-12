@@ -1,6 +1,6 @@
 export const fetchWikipediaInfo = async (searchTerm) => {
   try {
-    // Wikipedia API URL
+    // Wikipedia API URL to search for the term
     const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchTerm)}&format=json&origin=*`;
 
     // Make the API call to search for the term
@@ -21,17 +21,18 @@ export const fetchWikipediaInfo = async (searchTerm) => {
     const summaryResponse = await fetch(summaryUrl);
     const summaryData = await summaryResponse.json();
 
-    System.out.println("Title: ", summaryData.title);
-    System.out.println("Summary: ", summaryData.extract);
+    // Log the title and summary to the console
+    console.log("Title:", summaryData.title);
+    console.log("Summary:", summaryData.extract);
 
     // Return the page title and summary
     return {
-      title: summaryData.title
-      //summary: summaryData.extract,
-      //thumbnail: summaryData.thumbnail?.source || null, // Optional: Get thumbnail image if available
+      title: summaryData.title,  // Add the missing comma here
+      summary: summaryData.extract,
+      thumbnail: summaryData.thumbnail?.source || null,  // Optional: Get thumbnail image if available
     };
   } catch (error) {
     console.error('Error fetching Wikipedia info:', error);
     return null;
   }
-}
+};
