@@ -24,3 +24,4 @@ To install the required navigation packages for the project, run the following c
 npm install @react-navigation/native
 npm install @react-navigation/stack
 npm install react-native-screens react-native-safe-area-context
+npx expo install expo-sqlite
