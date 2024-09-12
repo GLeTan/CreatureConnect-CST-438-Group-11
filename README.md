@@ -1,12 +1,12 @@
-# Creature Connect
+## Navigation Installer
 
-CreatureConnect lets people learn and talk about animals they're interested in.
-Users can search animals by their name to find information like their habitats, descriptions, images.
+To install the required navigation packages for the project, run the following commands:
 
-#Navigation Installer
+```bash
 npm install @react-navigation/native
 npm install @react-navigation/stack
 npm install react-native-screens react-native-safe-area-context
+
 
 # APIs used
 
