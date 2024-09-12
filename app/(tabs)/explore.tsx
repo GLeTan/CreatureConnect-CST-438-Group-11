@@ -5,11 +5,11 @@ import { ThemedView } from '@/components/ThemedView';
 
 export default function SignupScreen() {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignup = () => {
-    if (!name || !email || !password) {
+    if (!name || !username || !password) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
@@ -29,11 +29,10 @@ export default function SignupScreen() {
       />
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        placeholder="Username"
         placeholderTextColor="#aaa"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
+        value={username}
+        onChangeText={setUsername}
         autoCapitalize="none"
       />
       <TextInput
@@ -66,4 +65,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
-

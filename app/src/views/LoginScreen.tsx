@@ -5,17 +5,16 @@ import { ThemedView } from '@/components/ThemedView';
 import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('csumb@csumb.edu');
+  const [username, setUsername] = useState('csumbuser');
   const [password, setPassword] = useState('admin');
-  const navigation = useNavigation(); // Hook to access navigation
+  const navigation = useNavigation();
 
   const handleLogin = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Please fill in both email and password');
+    if (!username || !password) {
+      Alert.alert('Error', 'Please fill in both username and password');
       return;
     }
 
-    // If login is successful, navigate to Home screen
     Alert.alert('Success', 'Login successful!', [
       { text: 'OK', onPress: () => navigation.navigate('Home') }
     ]);
@@ -26,11 +25,10 @@ export default function LoginScreen() {
       <ThemedText type="title">Login</ThemedText>
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        placeholder="Username"
         placeholderTextColor="#aaa"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
+        value={username}
+        onChangeText={setUsername}
         autoCapitalize="none"
       />
       <TextInput
