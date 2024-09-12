@@ -1,32 +1,28 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, Alert, View } from 'react-native';
+import { TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SignupScreen() {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginScreen() {
+  const [username, setUsername] = useState('csumbuser');
+  const [password, setPassword] = useState('admin');
+  const navigation = useNavigation();
 
-  const handleSignup = () => {
-    if (!name || !username || !password) {
-      Alert.alert('Error', 'Please fill in all fields');
+  const handleLogin = () => {
+    if (!username || !password) {
+      Alert.alert('Error', 'Please fill in both username and password');
       return;
     }
-    // Implement signup logic here, e.g., create user account
-    Alert.alert('Success', 'Signup successful!');
+
+    Alert.alert('Success', 'Login successful!', [
+      { text: 'OK', onPress: () => navigation.navigate('Home') }
+    ]);
   };
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Sign Up</ThemedText>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        placeholderTextColor="#aaa"
-        value={name}
-        onChangeText={setName}
-      />
+      <ThemedText type="title">Login</ThemedText>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -43,7 +39,7 @@ export default function SignupScreen() {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Sign Up" onPress={handleSignup} />
+      <Button title="Login" onPress={handleLogin} />
     </ThemedView>
   );
 }
