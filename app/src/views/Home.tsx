@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-// Assuming the background image is in the assets folder
-const backgroundImage = require('../../../assets/images/Background1.png'); // Change the path to where your image is located
+const backgroundImage = require('../../../assets/images/Background1.png');
 
 export default function HomeScreen() {
   const navigation = useNavigation(); // Hook to handle navigation

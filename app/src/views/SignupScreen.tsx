@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, Alert, ImageBackground } from 'react-native';
+import { TextInput, Button, StyleSheet, Alert, View, ImageBackground } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useNavigation } from '@react-navigation/native';
-import { checkUserByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 import * as SQLite from 'expo-sqlite';
-
+import { checkUserByUsername, insertUserData, logUserByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
 const backgroundImage = require('../../../assets/images/loginsignup.jpg');
 
-export default function LoginScreen() {
-  const [username, setUsername] = useState('csumbuser');
-  const [password, setPassword] = useState('admin');
-  const navigation = useNavigation();
+export default function SignupScreen() {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigation = useNavigation(); // Initialize useNavigation
 
-  const handleLogin = () => {
-    if (!username || !password) {
-      Alert.alert('Error', 'Please fill in both username and password');
+  const handleSignup = () => {
+    if (!name || !username || !password) {
+      Alert.alert('Error', 'Please fill in all fields');
       return;
     }
-
     const database = openDatabase();
     openUserTable(database);
     checkUsername(database);
@@ -29,18 +28,27 @@ export default function LoginScreen() {
     const newName = await checkUserByUsername(database, username);
 
     if (newName) {
-      Alert.alert('Success', 'Login successful!', [
-        { text: 'OK', onPress: () => navigation.navigate('Home') }
-      ]);
+      Alert.alert('Error', 'Username already exists');
+      return;
     } else {
-      Alert.alert('Error', 'Username not found');
+      insertUserData(database, username, password);
+      logUserByUsername(database, username);
+      Alert.alert('Success', 'Signup successful!');
+      navigation.navigate('Login'); // Navigate to Login after successful signup
     }
   };
 
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <ThemedView style={styles.container}>
-        <ThemedText type="title">Login</ThemedText>
+        <ThemedText type="title">Sign Up</ThemedText>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          placeholderTextColor="#aaa"
+          value={name}
+          onChangeText={setName}
+        />
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -57,9 +65,9 @@ export default function LoginScreen() {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button title="Login" onPress={handleLogin} />
+        <Button title="Sign Up" onPress={handleSignup} />
         <View style={styles.buttonContainer}>
-          <Button title="Sign Up" onPress={() => navigation.navigate('Signup')} />
+          <Button title="Back to Login" onPress={() => navigation.navigate('Login')} />
         </View>
       </ThemedView>
     </ImageBackground>
