@@ -1,6 +1,6 @@
 import {fetchWikipediaInfo} from '../../app/src/api/wikipediaApi';
 
-describe('fetchSpecies', () => {
+describe('fetchSummaryByAnimalName', () => {
     beforeEach(() => {
         fetch.resetMocks();  // Reset mock fetch before each test
     });
