@@ -1,63 +1,30 @@
-import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, Alert } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from '../src/views/LoginScreen';
+import HomeScreen from '../src/views/Home';
+import Animals from '../src/views/Animals';
+import Favorites from '../src/views/Favorites';
+import Search from '../src/views/Search';
 
-export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Stack = createStackNavigator();
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Please fill in both email and password');
-      return;
-    }
-    // Implement login logic here, e.g., authenticate user
-    Alert.alert('Success', 'Login successful!');
-  };
+import {openDatabase, openUserTable, insertUserData, deleteUserData, logUserData} from '@/app/database/userDB';
+import { useEffect } from 'react';
+import * as SQLite from 'expo-sqlite';
 
+
+
+export default function App() {
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">Login</ThemedText>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#aaa"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="#aaa"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Login" onPress={handleLogin} />
-    </ThemedView>
+    <NavigationContainer independent={true}>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Animals" component={Animals} />
+        <Stack.Screen name="Favorites" component={Favorites} />
+        <Stack.Screen name="Search" component={Search} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  input: {
-    width: '100%',
-    padding: 12,
-    marginVertical: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    backgroundColor: '#fff',
-  },
-});
-
-
-

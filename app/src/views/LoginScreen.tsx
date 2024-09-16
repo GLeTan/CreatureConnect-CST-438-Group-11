@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, Alert, View } from 'react-native';
+import { TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useNavigation } from '@react-navigation/native';
+import { checkUserByUsername, getPasswordByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
 import * as SQLite from 'expo-sqlite';
-import { checkUserByUsername, insertUserData, logUserByUsername, openDatabase, openUserTable } from '../database/userDB';
 
-export default function SignupScreen() {
-  const [name, setName] = useState('');
+export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
-  const handleSignup = () => {
-    if (!name || !username || !password) {
-      Alert.alert('Error', 'Please fill in all fields');
+  const handleLogin = () => {
+    if (!username || !password) {
+      Alert.alert('Error', 'Please fill in both username and password');
       return;
     }
-    // Implement signup logic here, e.g., create user account
+
     const database = openDatabase();
     openUserTable(database);
     checkUsername(database);
-    // logUserByUsername(database, username);
-
-     
   };
 
   const checkUsername = async (database: Promise<SQLite.SQLiteDatabase | null>) => {
@@ -29,25 +27,27 @@ export default function SignupScreen() {
     const newName = await checkUserByUsername(database, username);
 
     if (newName) {
-      Alert.alert('Error', 'Username already exist');
-      return;
+      checkPassword(database)
     } else {
-      insertUserData(database, username, password);
-      logUserByUsername(database, username);
-      Alert.alert('Success', 'Signup successful!');
+      Alert.alert('Error', 'Username not found');
+    }
+  };
+
+  const checkPassword = async (database: Promise<SQLite.SQLiteDatabase | null>) => {
+    const dbPassword = await getPasswordByUsername(database, username);
+
+    if (dbPassword === password) {
+      Alert.alert('Success', 'Login successful!', [
+        { text: 'OK', onPress: () => navigation.navigate('Home') }
+      ]);
+    } else {
+      Alert.alert('Error', 'Password does not match');
     }
   };
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Sign Up</ThemedText>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        placeholderTextColor="#aaa"
-        value={name}
-        onChangeText={setName}
-      />
+      <ThemedText type="title">Login</ThemedText>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -64,7 +64,7 @@ export default function SignupScreen() {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Sign Up" onPress={handleSignup} />
+      <Button title="Login" onPress={handleLogin} />
     </ThemedView>
   );
 }
