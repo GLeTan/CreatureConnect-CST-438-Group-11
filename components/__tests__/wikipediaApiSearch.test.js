@@ -1,4 +1,3 @@
-//import {searchSite} from '../../app/src/api/inaturalistApi';
 import {fetchWikipediaInfo} from '../../app/src/api/wikipediaApi';
 
 describe('fetchSpecies', () => {
