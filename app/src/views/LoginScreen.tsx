@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useNavigation } from '@react-navigation/native';
-import { checkUserByUsername, getPasswordByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
+import { checkUserByUsername, getPasswordByUsername, getUserIdByUsername, openDatabase, openUserTable } from '@/app/database/userDB';
 import * as SQLite from 'expo-sqlite';
+import { GlobalContext } from '@/app/(tabs)/currentUser';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
 
   const handleLogin = () => {
+    
+    
     if (!username || !password) {
       Alert.alert('Error', 'Please fill in both username and password');
       return;
@@ -37,6 +41,15 @@ export default function LoginScreen() {
     const dbPassword = await getPasswordByUsername(database, username);
 
     if (dbPassword === password) {
+      const newId = await getUserIdByUsername(database, username);
+      if (newId) {
+        setGlobalVariable({
+          ...globalVariable,
+          user: {id: newId, name: username}, // insert user id here
+          isLoggedIn: true,
+        });
+      }
+      
       Alert.alert('Success', 'Login successful!', [
         { text: 'OK', onPress: () => navigation.navigate('Home') }
       ]);

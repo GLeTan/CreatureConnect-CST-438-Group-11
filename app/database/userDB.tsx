@@ -133,3 +133,19 @@ export const getPasswordByUsername = async (databasePromise: Promise<SQLite.SQLi
         return null;
     }
 };
+
+export const getUserIdByUsername = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, username: string): Promise<number> => {
+    const database = await databasePromise;
+
+    if (database) {
+        const firstRow = await database.getFirstAsync('SELECT * FROM user WHERE username = $value', {$value: username}) as UserType;
+        if (firstRow) {
+            return firstRow.id;
+        } else {
+            return -1;
+        }
+    } else {
+        console.error('Database is null, table not opened');
+        return -1;
+    }
+};

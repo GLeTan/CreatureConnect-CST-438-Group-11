@@ -9,22 +9,25 @@ import Search from '../src/views/Search';
 
 const Stack = createStackNavigator();
 
-import {openDatabase, openUserTable, insertUserData, deleteUserData, logUserData} from '@/app/database/userDB';
+import { openDatabase, openUserTable, insertUserData, deleteUserData, logUserData } from '@/app/database/userDB';
 import { useEffect } from 'react';
 import * as SQLite from 'expo-sqlite';
+import { GlobalProvider } from './currentUser';
 
 
 
 export default function App() {
   return (
-    <NavigationContainer independent={true}>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Animals" component={Animals} />
-        <Stack.Screen name="Favorites" component={Favorites} />
-        <Stack.Screen name="Search" component={Search} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GlobalProvider>
+      <NavigationContainer independent={true}>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Animals" component={Animals} />
+          <Stack.Screen name="Favorites" component={Favorites} />
+          <Stack.Screen name="Search" component={Search} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GlobalProvider>
   );
 }
