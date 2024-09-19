@@ -1,7 +1,13 @@
-import React from 'react';
+import { GlobalContext } from '@/app/(tabs)/currentUser';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 export default function Favorites() {
+  const { globalVariable } = useContext(GlobalContext);
+
+  console.log(globalVariable.user?.id);
+  
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>This is the Favorites Page</Text>
@@ -21,3 +27,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
