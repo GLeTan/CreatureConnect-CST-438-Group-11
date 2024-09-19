@@ -33,3 +33,11 @@ To install the required database packages for the project, run the following com
 ```bash
 npx expo install expo-sqlite
 ```
+
+## Storage Installer
+
+To install the required navigation packages for the project, run the following command:
+
+```bash
+npm install @react-native-async-storage/async-storage
+```
