@@ -7,7 +7,7 @@ Users can search animals by their name to find information like their habitats, 
 
 # APIs used
 
-[INaturalist API](https://api.inaturalist.org/v1/docs/)
+[Wikipedia API](https://en.wikipedia.org/w/api.php)
 
 # Contributors
 * Gordon Tan - [GLeTan](https://github.com/GLeTan)
@@ -32,4 +32,12 @@ To install the required database packages for the project, run the following com
 
 ```bash
 npx expo install expo-sqlite
+```
+
+## Storage Installer
+
+To install the required navigation packages for the project, run the following command:
+
+```bash
+npm install @react-native-async-storage/async-storage
 ```

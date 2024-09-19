@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, Switch, Button, StyleSheet } from 'react-native';
+import { GlobalContext } from './currentUser';
 
 export default function SettingsScreen() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -7,6 +8,20 @@ export default function SettingsScreen() {
 
   const handleToggleDarkMode = () => setIsDarkMode((prev) => !prev);
   const handleToggleNotifications = () => setNotificationsEnabled((prev) => !prev);
+  const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
+
+  // Logout function
+  const handleLogout = () => {
+    // Reset global state to initial values
+    setGlobalVariable({
+      user: null,
+      isLoggedIn: false,
+    });
+
+    console.log(globalVariable.user);
+  };
+
+  
 
   return (
     <View style={styles.container}>
@@ -28,6 +43,7 @@ export default function SettingsScreen() {
       <Button title="Reset Settings" onPress={() => {
         setIsDarkMode(false);
         setNotificationsEnabled(true);
+        handleLogout();
       }} />
     </View>
   );
