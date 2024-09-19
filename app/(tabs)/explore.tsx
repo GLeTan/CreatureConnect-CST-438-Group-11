@@ -1,12 +1,46 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, Button, StyleSheet } from 'react-native';
+
+import { View, Text, Switch, Button, StyleSheet, Alert } from 'react-native';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import * as SQLite from 'expo-sqlite';
+import { checkUserByUsername, insertUserData, logUserByUsername, openDatabase, openUserTable } from '../database/userDB';
 
 export default function SettingsScreen() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
+
   const handleToggleDarkMode = () => setIsDarkMode((prev) => !prev);
   const handleToggleNotifications = () => setNotificationsEnabled((prev) => !prev);
+
+  const handleSignup = () => {
+    if (!name || !username || !password) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+    // Implement signup logic here, e.g., create user account
+    const database = openDatabase();
+    openUserTable(database);
+    checkUsername(database);
+    // logUserByUsername(database, username);
+
+     
+  };
+
+  const checkUsername = async (database: Promise<SQLite.SQLiteDatabase | null>) => {
+    // Check that username is not already taken
+    const newName = await checkUserByUsername(database, username);
+
+    if (newName) {
+      Alert.alert('Error', 'Username already exist');
+      return;
+    } else {
+      insertUserData(database, username, password);
+      logUserByUsername(database, username);
+      Alert.alert('Success', 'Signup successful!');
+    }
+  };
 
   return (
     <View style={styles.container}>

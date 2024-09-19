@@ -1,50 +1,43 @@
-# Welcome to your Expo app 👋
+# Creature Connect
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+CreatureConnect lets people learn and talk about animals they're interested in.  
+Users can search animals by their name to find information like their habitats, descriptions, and images.
 
-## Get started
 
-1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+# APIs used
 
-2. Start the app
+[Wikipedia API](https://en.wikipedia.org/w/api.php)
 
-   ```bash
-    npx expo start
-   ```
+# Contributors
+* Gordon Tan - [GLeTan](https://github.com/GLeTan)
+* Ricardo Nunex - [ItzRikk](https://github.com/ItzRikk)
+* Arturo Cesareo-Zacarias - [rumkkee](https://github.com/rumkkee)
+* Anthony Guido - [anthony-g-07](https://github.com/anthony-g-07)
 
-In the output, you'll find options to open the app in a
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Navigation Installer
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+To install the required navigation packages for the project, run the following commands:
 
 ```bash
-npm run reset-project
+npm install @react-navigation/native
+npm install @react-navigation/stack
+npm install react-native-screens react-native-safe-area-context
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Database Installer
 
-## Learn more
+To install the required database packages for the project, run the following commands:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npx expo install expo-sqlite
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Storage Installer
 
-## Join the community
+To install the required navigation packages for the project, run the following command:
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npm install @react-native-async-storage/async-storage
+```

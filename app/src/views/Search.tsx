@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, ActivityIndicator, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { fetchRelevantPages } from '../api/wikipediaApi';
+
 import { useNavigation } from '@react-navigation/native';
 
 export default function Search() {
