@@ -7,7 +7,7 @@ Users can search animals by their name to find information like their habitats, 
 
 # APIs used
 
-[INaturalist API](https://api.inaturalist.org/v1/docs/)
+[Wikipedia API](https://en.wikipedia.org/w/api.php)
 
 # Contributors
 * Gordon Tan - [GLeTan](https://github.com/GLeTan)
