@@ -135,4 +135,14 @@ const styles = StyleSheet.create({
     height: 200,
     marginTop: 20
   },
+  summary: {
+    fontSize: 16,
+    marginVertical: 10,
+    textAlign: 'center',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginTop: 20
+  },
 });

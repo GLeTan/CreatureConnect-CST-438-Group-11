@@ -69,4 +69,4 @@ export const fetchRelevantPages = async (searchTerm) => {
         console.error('Error fetching relevant pages:', error);
         return null;
     }
-}
+};
