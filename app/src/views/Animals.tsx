@@ -4,28 +4,28 @@ import { fetchWikipediaInfo } from '../api/wikipediaApi'; // Make sure the path 
 import { useRoute } from '@react-navigation/native'; // To get the route parameters
 
 export default function Animals() {
-  const route = useRoute(); // Get the route object to access the params
-  const { title } = route.params; // Destructure the title passed from Search.tsx
+  const route = useRoute();
+  const { title } = route.params;
 
-  const [animalData, setAnimalData] = useState(null); // To store the fetched data
-  const [isLoading, setIsLoading] = useState(true); // For the loading state
-  const [error, setError] = useState<string | null>(null); // To handle errors
+  const [animalData, setAnimalData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Fetch the animal's details when the component mounts
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchWikipediaInfo(title); // Use the title from the navigation params
-        setAnimalData(data); // Store the data in the state
+        const data = await fetchWikipediaInfo(title);
+        setAnimalData(data);
       } catch (err) {
         setError('Error fetching animal data');
       } finally {
-        setIsLoading(false); // Stop loading once data is fetched
+        setIsLoading(false);
       }
     };
 
-    fetchData(); // Trigger the fetch
-  }, [title]); // Re-run the fetch if the title changes
+    fetchData();
+  }, [title]);
 
   if (isLoading) {
     return (
