@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, ActivityIndicator, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, Image, ActivityIndicator, StyleSheet, Button } from 'react-native';
 import { fetchWikipediaInfo } from '../api/wikipediaApi'; // Make sure the path to the API file is correct
 import { useRoute } from '@react-navigation/native'; // To get the route parameters
+import { insertFavoriteData, openDatabase, openFavoriteTable } from '@/app/database/animalDB';
+import { GlobalContext } from '@/app/(tabs)/currentUser';
 
 export default function Animals() {
   const route = useRoute();
@@ -10,6 +12,20 @@ export default function Animals() {
   const [animalData, setAnimalData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
+
+  const addToFavorites = () => {
+    const database = openDatabase();
+    openFavoriteTable(database);
+    const x = globalVariable.user?.id;
+    if (x) {
+      insertFavoriteData(database, title, "", 0, x);
+    } else {
+      console.log("error");
+    }
+    
+  };
+  
 
 
   useEffect(() => {
@@ -54,6 +70,8 @@ export default function Animals() {
           )}
         </>
       )}
+
+      <Button title="Add To Favorite" onPress={addToFavorites}/> 
     </View>
   );
 }
