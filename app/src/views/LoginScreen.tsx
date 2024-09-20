@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { TextInput, Button, StyleSheet, Alert, View } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useNavigation } from '@react-navigation/native';
@@ -51,7 +51,7 @@ export default function LoginScreen() {
       }
       
       Alert.alert('Success', 'Login successful!', [
-        { text: 'OK', onPress: () => navigation.navigate('Home') }
+        { text: 'OK', onPress: () => navigation.navigate('Tabs') }
       ]);
     } else {
       Alert.alert('Error', 'Password does not match');
@@ -78,6 +78,13 @@ export default function LoginScreen() {
         secureTextEntry
       />
       <Button title="Login" onPress={handleLogin} />
+      <View style={styles.buttonContainer}>
+          <Button
+            title="SignUp"
+            
+            onPress={() => navigation.navigate('SignUp')} // Navigate to Favorites page
+          />
+      </View>
     </ThemedView>
   );
 }
@@ -97,5 +104,9 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
     backgroundColor: '#fff',
+  },
+  buttonContainer: {
+    marginVertical: 10, // Adds vertical space between buttons
+    // width: '80%', // Ensures buttons take up 80% of the screen width
   },
 });
