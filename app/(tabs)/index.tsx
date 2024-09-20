@@ -6,6 +6,7 @@ import HomeScreen from '../src/views/Home';
 import Animals from '../src/views/Animals';
 import Favorites from '../src/views/Favorites';
 import Search from '../src/views/Search';
+import SignupScreen from '../src/views/SignupScreen'; // Update here
 
 const Stack = createStackNavigator();
 

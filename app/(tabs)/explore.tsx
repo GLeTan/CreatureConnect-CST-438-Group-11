@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, Alert, View } from 'react-native';
+
+import { View, Text, Switch, Button, StyleSheet, Alert } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import * as SQLite from 'expo-sqlite';
 import { checkUserByUsername, insertUserData, logUserByUsername, openDatabase, openUserTable } from '../database/userDB';
 
-export default function SignupScreen() {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export default function SettingsScreen() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+
+
+  const handleToggleDarkMode = () => setIsDarkMode((prev) => !prev);
+  const handleToggleNotifications = () => setNotificationsEnabled((prev) => !prev);
 
   const handleSignup = () => {
     if (!name || !username || !password) {
@@ -39,50 +43,45 @@ export default function SignupScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">Sign Up</ThemedText>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        placeholderTextColor="#aaa"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        placeholderTextColor="#aaa"
-        value={username}
-        onChangeText={setUsername}
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="#aaa"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Sign Up" onPress={handleSignup} />
-    </ThemedView>
+    <View style={styles.container}>
+      <Text style={styles.title}>Settings</Text>
+
+      {/* Dark Mode Toggle */}
+      <View style={styles.setting}>
+        <Text>Dark Mode</Text>
+        <Switch value={isDarkMode} onValueChange={handleToggleDarkMode} />
+      </View>
+
+      {/* Notifications Toggle */}
+      <View style={styles.setting}>
+        <Text>Enable Notifications</Text>
+        <Switch value={notificationsEnabled} onValueChange={handleToggleNotifications} />
+      </View>
+
+      {/* Placeholder button for additional settings */}
+      <Button title="Reset Settings" onPress={() => {
+        setIsDarkMode(false);
+        setNotificationsEnabled(true);
+      }} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
   },
-  input: {
-    width: '100%',
-    padding: 12,
-    marginVertical: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    backgroundColor: '#fff',
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  setting: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 10,
   },
 });

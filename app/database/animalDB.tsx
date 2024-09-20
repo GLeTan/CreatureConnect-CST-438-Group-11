@@ -26,6 +26,7 @@ export const openFavoriteTable = async (databasePromise: Promise<SQLite.SQLiteDa
         if (database) {
             database.runAsync(`PRAGMA journal_mode = WAL`);
             database.runAsync(`CREATE TABLE IF NOT EXISTS favorite (
+
           id INTEGER PRIMARY KEY NOT NULL, 
           animalName TEXT NOT NULL, 
           comment TEXT NOT NULL,
@@ -54,9 +55,9 @@ export const insertFavoriteData = async (databasePromise: Promise<SQLite.SQLiteD
 
         try {
             let result = await statement.executeAsync({ $name: animalName, $comm: comment, $rate: rating, $ID: userId });
+
             console.log("name: " + animalName + " | comm: " + comment + " rate: " + rating + " id: " + userId + " ", 
                 result.lastInsertRowId, result.changes);
-    
         } catch (error) {
             console.error('Error inserting data', error);
         } finally {
@@ -66,8 +67,6 @@ export const insertFavoriteData = async (databasePromise: Promise<SQLite.SQLiteD
     } else {
         console.error('Database is null, table not opened');
     }
-    
-    
 };
 
 export const deleteFavoriteData = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, favoriteid: number) => {
@@ -79,7 +78,6 @@ export const deleteFavoriteData = async (databasePromise: Promise<SQLite.SQLiteD
     } else {
         console.error('Database is null, table not opened');
     }
-    
 };
 
 export const getOneFavortieByUserId = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, userId: number): Promise<string | null> => {

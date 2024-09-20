@@ -26,21 +26,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'SignUp',
+          title: 'settings',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'key' : 'key-outline'} color={color} />
+            <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} />
           ),
         }}
       />
-      <Tabs.Screen
-              name="settings"
-              options={{
-                title: 'settings',
-                tabBarIcon: ({ color, focused }) => (
-                  <TabBarIcon name={focused ? 'settings' : 'settings-outline'} color={color} />
-                ),
-              }}
-            />
     </Tabs>
   );
 }

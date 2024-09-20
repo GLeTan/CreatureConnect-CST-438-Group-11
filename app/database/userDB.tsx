@@ -24,6 +24,7 @@ export const openUserTable = async (databasePromise: Promise<SQLite.SQLiteDataba
         if (database) {
             database.runAsync(`PRAGMA journal_mode = WAL`);
             database.runAsync(`CREATE TABLE IF NOT EXISTS user (
+
           id INTEGER PRIMARY KEY NOT NULL, 
           username TEXT NOT NULL, 
           password TEXT NOT NULL
@@ -50,7 +51,6 @@ export const insertUserData = async (databasePromise: Promise<SQLite.SQLiteDatab
         try {
             let result = await statement.executeAsync({ $name: name, $pass: pass });
             console.log("name: " + name + " | password: " + pass, result.lastInsertRowId, result.changes);
-    
         } catch (error) {
             console.error('Error inserting data', error);
         } finally {
@@ -60,8 +60,6 @@ export const insertUserData = async (databasePromise: Promise<SQLite.SQLiteDatab
     } else {
         console.error('Database is null, table not opened');
     }
-    
-    
 };
 
 export const deleteUserData = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, userid: number) => {
@@ -73,7 +71,6 @@ export const deleteUserData = async (databasePromise: Promise<SQLite.SQLiteDatab
     } else {
         console.error('Database is null, table not opened');
     }
-    
 };
 
 export const logUserData = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>) => {
