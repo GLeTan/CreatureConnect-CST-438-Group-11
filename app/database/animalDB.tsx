@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 
-type FavoriteType = {
+export type FavoriteType = {
     id: number;
     animalName: string;
     comment: string;
@@ -80,11 +80,30 @@ export const deleteFavoriteData = async (databasePromise: Promise<SQLite.SQLiteD
     }
 };
 
+export const getOneFavortieByUserId = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, userId: number): Promise<string | null> => {
+    const database = await databasePromise;
+
+    if (database) {
+        const allRows = await database.getFirstAsync('SELECT * FROM favorite WHERE userId = $value', {$value: userId}) as FavoriteType;
+        if (allRows) {
+            // console.log(allRows.animalName);
+            return allRows.animalName;
+        } else {
+            return null;
+        }
+    } else {
+        console.error('Database is null, table not opened');
+        return null;
+    }
+
+}
+
+
 export const getFavortiesByUserId = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, userId: number): Promise<FavoriteType[] | null> => {
     const database = await databasePromise;
 
     if (database) {
-        const allRows = await database.getAllAsync('SELECT * FROM favorite WHERE animal = $value', {$value: userId}) as FavoriteType[];
+        const allRows = await database.getAllAsync('SELECT * FROM favorite WHERE userId = $value', {$value: userId}) as FavoriteType[];
         if (allRows) {
             return allRows;
         } else {

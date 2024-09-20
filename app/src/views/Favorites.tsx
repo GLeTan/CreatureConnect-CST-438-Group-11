@@ -1,8 +1,8 @@
-
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { GlobalContext } from '@/app/(tabs)/currentUser';
+import { FavoriteType, getFavortiesByUserId, getOneFavortieByUserId, openDatabase, openFavoriteTable } from '@/app/database/animalDB';
+import React, { useContext, useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getFavortiesByUserId, openDatabase } from '@/app/database/animalDB';
 
 interface Animal {
   id: number | string;
@@ -30,6 +30,22 @@ const Favorites = () => {
 
     loadFavorites();
   }, []);
+    
+    
+  // console.log(globalVariable.user?.id);
+  
+  // getFavorites can be called at the moment this page is loaded.
+  // TODO: Use the title of each entry in the Favorites list to search those up
+<!--   const getFavorites = async () => {
+    const database = openDatabase();
+    openFavoriteTable(database);
+    const x = globalVariable.user?.id;
+    if (x) {
+      console.log("x: " + x);
+      const s = await getFavortiesByUserId(database, x);
+      console.log(s);
+    }
+  }; -->
 
   return (
     <View>
