@@ -41,3 +41,12 @@ To install the required navigation packages for the project, run the following c
 ```bash
 npm install @react-native-async-storage/async-storage
 ```
+
+## Unit Testing Installer
+
+To install the required unit testing packages for the project, run the following commands:
+
+```bash
+npm install jest-fetch-mock --save-dev
+```
+
