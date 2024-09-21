@@ -3,8 +3,8 @@ import * as SQLite from 'expo-sqlite';
 export type FavoriteType = {
     id: number;
     animalName: string;
-    comment: string;
-    rating: number;
+    summary: string;
+    imageUrl: string;
 
 };
 
@@ -28,8 +28,8 @@ export const openFavoriteTable = async (databasePromise: Promise<SQLite.SQLiteDa
             database.runAsync(`CREATE TABLE IF NOT EXISTS favorite (
           id INTEGER PRIMARY KEY NOT NULL, 
           animalName TEXT NOT NULL, 
-          comment TEXT NOT NULL,
-          rating INTEGER,
+          summary TEXT NOT NULL,
+          imageUrl TEXT NOT NULL,
           userId INTEGER
       );`);
             console.log('Table opened successfully');
@@ -44,17 +44,17 @@ export const openFavoriteTable = async (databasePromise: Promise<SQLite.SQLiteDa
 };
 
 export const insertFavoriteData = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, animalName: string,
-     comment: string, rating: number, userId: number) => {
+     summary: string, imageUrl: number, userId: number) => {
     const database = await databasePromise;
 
     if (database) {
         const statement = await database.prepareAsync(
-            'INSERT INTO favorite (animalName, comment, rating, userId) VALUES ($name, $comm, $rate, $ID)'
+            'INSERT INTO favorite (animalName, summary, imageUrl, userId) VALUES ($name, $comm, $rate, $ID)'
         );
 
         try {
-            let result = await statement.executeAsync({ $name: animalName, $comm: comment, $rate: rating, $ID: userId });
-            console.log("name: " + animalName + " | comm: " + comment + " rate: " + rating + " id: " + userId + " ", 
+            let result = await statement.executeAsync({ $name: animalName, $comm: summary, $rate: imageUrl, $ID: userId });
+            console.log("name: " + animalName + " | comm: " + summary + " rate: " + imageUrl + " id: " + userId + " ", 
                 result.lastInsertRowId, result.changes);
     
         } catch (error) {
