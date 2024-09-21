@@ -11,8 +11,11 @@ export default function HomeScreen() {
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome to CreatureConnect!</Text>
-
+      <Text style={styles.title}>Welcome to CreatureConnect!</Text>
+          <View style={styles.textContainer}>
+              <Text style={styles.text}>The Search Page lets you look up an animal, get info about it, and favorite it! </Text>
+              <Text style={styles.text}>The Favorites Page will show any animals you've favorited so far :) </Text>
+          </View>
       </View>
     </ImageBackground>
   );
@@ -28,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adds a semi-transparent overlay for better text visibility
+
   },
   title: {
     fontSize: 24,
@@ -35,7 +39,12 @@ const styles = StyleSheet.create({
     color: '#fff', // Change the text color to white for better contrast
     marginBottom: 20,
   },
-  buttonContainer: {
+  text: {
+      fontSize: 24,
+      color: '#fff', // Change the text color to white for better contrast
+      marginBottom: 20,
+    },
+  textContainer: {
     marginVertical: 10, // Adds vertical space between buttons
     width: '80%', // Ensures buttons take up 80% of the screen width
   },
