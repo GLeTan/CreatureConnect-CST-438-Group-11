@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Image, ActivityIndicator, StyleSheet, Button } from 'react-native';
-import { fetchWikipediaInfo } from '../api/wikipediaApi'; // Make sure the path to the API file is correct
-import { useRoute } from '@react-navigation/native'; // To get the route parameters
+import { View, Text, Image, ActivityIndicator, StyleSheet, Button, ScrollView } from 'react-native';
+import { fetchWikipediaInfo } from '../api/wikipediaApi';
+import { useRoute } from '@react-navigation/native';
 import { insertFavoriteData, openDatabase, openFavoriteTable } from '@/app/database/animalDB';
 import { GlobalContext } from '@/app/(tabs)/currentUser';
 
@@ -23,10 +23,7 @@ export default function Animals() {
     } else {
       console.log("error");
     }
-    
   };
-  
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,25 +57,32 @@ export default function Animals() {
   }
 
   return (
-    <View style={styles.container}>
-      {animalData && (
-        <>
-          <Text style={styles.title}>{animalData.title}</Text>
-          <Text style={styles.summary}>{animalData.summary}</Text>
-          {animalData.thumbnail && (
-            <Image source={{ uri: animalData.thumbnail }} style={styles.image} />
-          )}
-        </>
-      )}
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        {animalData && (
+          <>
+            <Text style={styles.title}>{animalData.title}</Text>
+            <Text style={styles.summary}>{animalData.summary}</Text>
+            {animalData.thumbnail && (
+              <Image source={{ uri: animalData.thumbnail }} style={styles.image} />
+            )}
+          </>
+        )}
 
-      <Button title="Add To Favorite" onPress={addToFavorites}/> 
-    </View>
+        <Button title="Add To Favorite" onPress={addToFavorites} />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
@@ -98,6 +102,11 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    marginTop: 20
+    marginTop: 20,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 18,
+    marginTop: 20,
   },
 });
