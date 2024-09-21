@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Image, ActivityIndicator, StyleSheet, Button, ScrollView } from 'react-native';
-import { fetchWikipediaInfo } from '../api/wikipediaApi'; // Make sure the path to the API file is correct
-import { useRoute } from '@react-navigation/native'; // To get the route parameters
+import { fetchWikipediaInfo } from '../api/wikipediaApi';
+import { useRoute } from '@react-navigation/native';
 import { insertFavoriteData, openDatabase, openFavoriteTable } from '@/app/database/animalDB';
 import { GlobalContext } from '@/app/(tabs)/currentUser';
 
@@ -77,7 +77,7 @@ export default function Animals() {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flexGrow: 1, // Makes the ScrollView fill the available space
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
