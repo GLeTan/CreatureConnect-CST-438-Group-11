@@ -1,6 +1,3 @@
-
-import React, { useState, useEffect } from 'react';
-import { View, Text, Switch, StyleSheet, useColorScheme } from 'react-native';
 import React, { useContext, useState } from 'react';
 import { View, Text, Switch, Button, StyleSheet, useColorScheme } from 'react-native';
 import { GlobalContext } from './currentUser';
