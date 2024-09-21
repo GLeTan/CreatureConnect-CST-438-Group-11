@@ -11,29 +11,11 @@ export default function HomeScreen() {
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <Text style={styles.text}>Welcome to CreatureConnect!</Text>
-
-        {/* Button Container with spacing */}
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Go to Animals"
-            onPress={() => navigation.navigate('Animals')} // Navigate to Animals page
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Go to Favorites"
-            onPress={() => navigation.navigate('Favorites')} // Navigate to Favorites page
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Go to Search"
-            onPress={() => navigation.navigate('Search')} // Navigate to Search page
-          />
-        </View>
+      <Text style={styles.title}>Welcome to CreatureConnect!</Text>
+          <View style={styles.textContainer}>
+              <Text style={styles.text}>The Search Page lets you look up an animal, get info about it, and favorite it! </Text>
+              <Text style={styles.text}>The Favorites Page will show any animals you've favorited so far :) </Text>
+          </View>
       </View>
     </ImageBackground>
   );
@@ -49,14 +31,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adds a semi-transparent overlay for better text visibility
+
   },
-  text: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff', // Change the text color to white for better contrast
     marginBottom: 20,
   },
-  buttonContainer: {
+  text: {
+      fontSize: 24,
+      color: '#fff', // Change the text color to white for better contrast
+      marginBottom: 20,
+    },
+  textContainer: {
     marginVertical: 10, // Adds vertical space between buttons
     width: '80%', // Ensures buttons take up 80% of the screen width
   },
