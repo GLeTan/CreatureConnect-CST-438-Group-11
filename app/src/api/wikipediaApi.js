@@ -70,3 +70,18 @@ export const fetchRelevantPages = async (searchTerm) => {
         return null;
     }
 };
+
+export const fetchThumbnailByAnimalName = async (pageName) => {
+    try{
+        const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
+        const summaryResponse = await fetch(summaryUrl);
+        const summaryData = await summaryResponse.json();
+
+        return{
+            thumbnail: summaryData.thumbnail?.source || null,
+        }
+    } catch (error) {
+       console.error('Error fetching thumbnail from Wikipedia page:', error);
+       return null;
+    }
+};

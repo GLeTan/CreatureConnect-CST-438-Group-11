@@ -14,6 +14,7 @@ interface GlobalContextType {
         user: UserType | null;
         isLoggedIn: boolean;
     }>>;
+    logout: () => void; // Add the logout function type
 }
 
 // Define default context value
@@ -23,6 +24,7 @@ const defaultValue: GlobalContextType = {
         isLoggedIn: false,
     },
     setGlobalVariable: () => { }, // You can leave this as an empty function for now
+    logout: () => { }, // Default empty function
 };
 
 // Create a context
@@ -39,8 +41,16 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         isLoggedIn: false,
     });
 
+    // Implement the logout function
+    const logout = () => {
+        setGlobalVariable({
+            user: null,
+            isLoggedIn: false,
+        });
+    };
+
     return (
-        <GlobalContext.Provider value={{ globalVariable, setGlobalVariable }}>
+        <GlobalContext.Provider value={{ globalVariable, setGlobalVariable, logout }}>
             {children}
         </GlobalContext.Provider>
     );

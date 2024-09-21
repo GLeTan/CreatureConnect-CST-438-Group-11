@@ -1,12 +1,28 @@
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, Switch, StyleSheet, useColorScheme } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, Switch, Button, StyleSheet, useColorScheme } from 'react-native';
+import { GlobalContext } from './currentUser';
+import { useNavigation } from 'expo-router';
 
 export default function SettingsScreen() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const { logout } = React.useContext(GlobalContext); // Access the logout function
+  const navigation = useNavigation();
   const systemColorScheme = useColorScheme();
 
   const handleToggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
+  };
+
+  const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
+
+  // Logout function
+  const handleLogout = () => {
+    logout(); // Call the logout function to reset the global state
+    navigation.navigate('Login'); // Navigate to the login screen
   };
 
   return (
@@ -18,6 +34,12 @@ export default function SettingsScreen() {
         <Text style={isDarkMode ? styles.darkText : styles.lightText}>Dark Mode</Text>
         <Switch value={isDarkMode} onValueChange={handleToggleDarkMode} />
       </View>
+
+
+      <Button title="Log Out" onPress={() => {
+        handleLogout();
+        
+      }} />
     </View>
   );
 }
