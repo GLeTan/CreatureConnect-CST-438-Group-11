@@ -11,29 +11,8 @@ export default function HomeScreen() {
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <Text style={styles.text}>Welcome to CreatureConnect!</Text>
+        <Text style={styles.title}>Welcome to CreatureConnect!</Text>
 
-        {/* Button Container with spacing */}
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Go to Animals"
-            onPress={() => navigation.navigate('Animals')} // Navigate to Animals page
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Go to Favorites"
-            onPress={() => navigation.navigate('Favorites')} // Navigate to Favorites page
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Go to Search"
-            onPress={() => navigation.navigate('Search')} // Navigate to Search page
-          />
-        </View>
       </View>
     </ImageBackground>
   );
@@ -50,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adds a semi-transparent overlay for better text visibility
   },
-  text: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff', // Change the text color to white for better contrast
