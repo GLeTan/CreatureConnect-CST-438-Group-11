@@ -18,8 +18,8 @@ export default function Animals() {
     const database = openDatabase();
     openFavoriteTable(database);
     const x = globalVariable.user?.id;
-    if (x) {
-      insertFavoriteData(database, title, "", 0, x);
+    if (x && animalData) {
+      insertFavoriteData(database, title, animalData.summary, animalData.thumbnail, x);
     } else {
       console.log("error");
     }
