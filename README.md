@@ -47,16 +47,23 @@ also worked on the User Context to get User Id across screens.
 ### Gordon Tan
 
 - https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/pulls/GLeTan
-- [a link to your issues]()
+- https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/issues?q=assignee%3AGLeTan+is%3Aopen+
 
 #### What was your role / which stories did you work on
 
-+ What was the biggest challenge? 
++ What was the biggest challenge?
+  + My biggest challenge is to how to start a project
 + Why was it a challenge?
-  + How was the challenge addressed?
+  + I did not know who was supposed to get the files posted into github
+  + I did not know the proper procedure to push files into github. This is got around with the use of Github Desktop's push function
+  + Expo is not an app where there is a site with button to download it. Had to run it through console
+  + The process of setting up android studio and environment variables is complicated. This is solved through expo's instructions on website
 + Favorite / most interesting part of this project
+   + The most favorite part is the animals page
 + If you could do it over, what would you change?
+   + I should communicate with my teammates much more often to do things earlier
 + What is the most valuable thing you learned?
+   + I should ask for help or look for help
 
 ### Team Member name
 
