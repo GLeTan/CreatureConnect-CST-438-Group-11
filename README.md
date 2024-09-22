@@ -44,9 +44,9 @@ also worked on the User Context to get User Id across screens.
 + What is the most valuable thing you learned?
   + Use your resources to get help early so that I could focus on other parts of the project
 
-### Team Member name
+### Gordon Tan
 
-- [a link to your pull requests]()
+- [[a link to your pull requests]()](https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/pulls/GLeTan)
 - [a link to your issues]()
 
 #### What was your role / which stories did you work on
