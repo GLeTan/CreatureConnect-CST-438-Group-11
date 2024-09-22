@@ -46,7 +46,7 @@ also worked on the User Context to get User Id across screens.
 
 ### Gordon Tan
 
-- [[a link to your pull requests]()](https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/pulls/GLeTan)
+- https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/pulls/GLeTan
 - [a link to your issues]()
 
 #### What was your role / which stories did you work on
