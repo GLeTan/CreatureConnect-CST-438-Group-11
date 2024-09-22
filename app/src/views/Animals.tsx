@@ -25,6 +25,11 @@ export default function Animals() {
     }
   };
 
+
+
+  };
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -72,6 +77,7 @@ export default function Animals() {
         <Button title="Add To Favorite" onPress={addToFavorites} />
       </View>
     </ScrollView>
+
   );
 }
 
