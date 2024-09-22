@@ -48,5 +48,6 @@ To install the required unit testing packages for the project, run the following
 
 ```bash
 npm install jest-fetch-mock --save-dev
+npm install --save-dev @testing-library/react-native
 ```
 
