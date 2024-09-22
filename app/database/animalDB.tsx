@@ -44,16 +44,16 @@ export const openFavoriteTable = async (databasePromise: Promise<SQLite.SQLiteDa
 };
 
 export const insertFavoriteData = async (databasePromise: Promise<SQLite.SQLiteDatabase | null>, animalName: string,
-     summary: string, imageUrl: number, userId: number) => {
+     summary: string, imageUrl: string, userId: number) => {
     const database = await databasePromise;
 
     if (database) {
         const statement = await database.prepareAsync(
-            'INSERT INTO favorite (animalName, summary, imageUrl, userId) VALUES ($name, $comm, $rate, $ID)'
+            'INSERT INTO favorite (animalName, summary, imageUrl, userId) VALUES ($name, $summary, $imageUrl, $ID)'
         );
 
         try {
-            let result = await statement.executeAsync({ $name: animalName, $comm: summary, $rate: imageUrl, $ID: userId });
+            let result = await statement.executeAsync({ $name: animalName, $summary: summary, $imageUrl: imageUrl, $ID: userId });
             console.log("name: " + animalName + " | comm: " + summary + " rate: " + imageUrl + " id: " + userId + " ",
                 result.lastInsertRowId, result.changes);
 
