@@ -37,12 +37,12 @@ describe('Database Tests', () => {
         
         (mockDatabase.prepareAsync as jest.Mock).mockResolvedValue(mockStatement);
         
-        await insertFavoriteData(Promise.resolve(mockDatabase), 'Lion', 'King of Jungle', 5, 1);
+        await insertFavoriteData(Promise.resolve(mockDatabase), 'Lion', 'King of Jungle', "image_url", 1);
         
         expect(mockDatabase.prepareAsync).toHaveBeenCalledWith(
-            'INSERT INTO favorite (animalName, comment, rating, userId) VALUES ($name, $comm, $rate, $ID)'
+            'INSERT INTO favorite (animalName, summary, imageUrl, userId) VALUES ($name, $summary, $imageUrl, $ID)'
         );
-        expect(mockStatement.executeAsync).toHaveBeenCalledWith({ $name: 'Lion', $comm: 'King of Jungle', $rate: 5, $ID: 1 });
+        expect(mockStatement.executeAsync).toHaveBeenCalledWith({ $name: 'Lion', $summary: 'King of Jungle', $imageUrl: "image_url", $ID: 1 });
         expect(mockStatement.finalizeAsync).toHaveBeenCalled();
     });
 
@@ -53,13 +53,13 @@ describe('Database Tests', () => {
 
     test('should fetch favorites by userId', async () => {
         const mockFavorites = [
-            { id: 1, animalName: 'Lion', comment: 'King of Jungle', rating: 5, userId: 1 },
+            { id: 1, animalName: 'Lion', summary: 'King of Jungle', comment: "image_url", userId: 1 },
         ];
         
         (mockDatabase.getAllAsync as jest.Mock).mockResolvedValue(mockFavorites);
 
         const result = await getFavortiesByUserId(Promise.resolve(mockDatabase), 1);
-        expect(mockDatabase.getAllAsync).toHaveBeenCalledWith('SELECT * FROM favorite WHERE animal = $value', { $value: 1 });
+        expect(mockDatabase.getAllAsync).toHaveBeenCalledWith('SELECT * FROM favorite WHERE userId = $value', { $value: 1 });
         expect(result).toEqual(mockFavorites);
     });
 });

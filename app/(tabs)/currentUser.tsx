@@ -5,7 +5,7 @@ interface UserType {
     name?: string;
 }
 
-interface GlobalContextType {
+export interface GlobalContextType {
     globalVariable: {
         user: UserType | null; // User can be either null or an object with id, name, and email
         isLoggedIn: boolean;
