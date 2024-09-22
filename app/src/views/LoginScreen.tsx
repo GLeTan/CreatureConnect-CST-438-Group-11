@@ -14,8 +14,8 @@ export default function LoginScreen() {
   const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
 
   const handleLogin = () => {
-    
-    
+
+
     if (!username || !password) {
       Alert.alert('Error', 'Please fill in both username and password');
       return;
@@ -49,7 +49,7 @@ export default function LoginScreen() {
           isLoggedIn: true,
         });
       }
-      
+
       Alert.alert('Success', 'Login successful!', [
         { text: 'OK', onPress: () => navigation.navigate('Tabs') }
       ]);
@@ -81,7 +81,7 @@ export default function LoginScreen() {
       <View style={styles.buttonContainer}>
           <Button
             title="SignUp"
-            
+
             onPress={() => navigation.navigate('SignUp')} // Navigate to Favorites page
           />
       </View>

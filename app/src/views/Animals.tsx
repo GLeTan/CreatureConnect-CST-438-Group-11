@@ -23,9 +23,9 @@ export default function Animals() {
     } else {
       console.log("error");
     }
-    
+
   };
-  
+
 
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function Animals() {
         </>
       )}
 
-      <Button title="Add To Favorite" onPress={addToFavorites}/> 
+      <Button title="Add To Favorite" onPress={addToFavorites}/>
     </View>
   );
 }
