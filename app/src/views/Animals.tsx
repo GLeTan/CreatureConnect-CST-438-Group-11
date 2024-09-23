@@ -1,118 +1,111 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Image, ActivityIndicator, StyleSheet, Button, ScrollView } from 'react-native';
-import { fetchWikipediaInfo } from '../api/wikipediaApi';
-import { useRoute } from '@react-navigation/native';
+import React from 'react';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import Animals from '../Animals';
+import { fetchWikipediaInfo } from '../../api/wikipediaApi';
 import { insertFavoriteData, openDatabase, openFavoriteTable } from '@/app/database/animalDB';
 import { GlobalContext } from '@/app/(tabs)/currentUser';
 
-export default function Animals() {
-  const route = useRoute();
-  const { title } = route.params;
+jest.mock('../../api/wikipediaApi');
+jest.mock('@/app/database/animalDB');
 
-  const [animalData, setAnimalData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
+const mockContextValue = {
+  globalVariable: {
+    user: {
+      id: 1,
+    },
+  },
+  setGlobalVariable: jest.fn(),
+};
 
-  const addToFavorites = () => {
-    const database = openDatabase();
-    openFavoriteTable(database);
-    const x = globalVariable.user?.id;
-    if (x && animalData) {
-      insertFavoriteData(database, title, animalData.summary, animalData.thumbnail, x);
-    } else {
-      console.log("error");
-    }
-  };
+describe('Animals Component', () => {
+  const route = { params: { title: 'Shoebill' } };
+  const mockNavigation = { navigate: jest.fn() };
 
+  beforeEach(() => {
+    fetchWikipediaInfo.mockClear();
+    insertFavoriteData.mockClear();
+    openDatabase.mockClear();
+    openFavoriteTable.mockClear();
+  });
 
+  it('renders loading state initially', () => {
+    fetchWikipediaInfo.mockResolvedValueOnce({});
+    const { getByTestId } = render(
+      <GlobalContext.Provider value={mockContextValue}>
+        <Animals route={route} navigation={mockNavigation} />
+      </GlobalContext.Provider>
+    );
 
-  
+    // Expect loading indicator to be present initially
+    expect(getByTestId('loading-indicator')).toBeTruthy();
+  });
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchWikipediaInfo(title);
-        setAnimalData(data);
-      } catch (err) {
-        setError('Error fetching animal data');
-      } finally {
-        setIsLoading(false);
-      }
+  it('renders fetched animal data correctly', async () => {
+    // Mock the API response with animal data
+    const mockAnimalData = {
+      title: 'Shoebill',
+      summary: 'The Shoebill is a large bird...',
+      thumbnail: 'https://example.com/shoebill.jpg',
     };
 
-    fetchData();
-  }, [title]);
+    fetchWikipediaInfo.mockResolvedValueOnce(mockAnimalData);
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+    const { getByText, getByAltText } = render(
+      <GlobalContext.Provider value={mockContextValue}>
+        <Animals route={route} navigation={mockNavigation} />
+      </GlobalContext.Provider>
     );
-  }
 
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>{error}</Text>
-      </View>
+    await waitFor(() => {
+      expect(getByText('Shoebill')).toBeTruthy();
+      expect(getByText('The Shoebill is a large bird...')).toBeTruthy();
+      expect(getByAltText('animal-thumbnail')).toBeTruthy();
+    });
+  });
+
+  it('handles API error and displays error message', async () => {
+    fetchWikipediaInfo.mockRejectedValueOnce(new Error('Error fetching animal data'));
+
+    const { getByText } = render(
+      <GlobalContext.Provider value={mockContextValue}>
+        <Animals route={route} navigation={mockNavigation} />
+      </GlobalContext.Provider>
     );
-  }
 
-  return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
-        {animalData && (
-          <>
-            <Text style={styles.title}>{animalData.title}</Text>
-            <Text style={styles.summary}>{animalData.summary}</Text>
-            {animalData.thumbnail && (
-              <Image source={{ uri: animalData.thumbnail }} style={styles.image} />
-            )}
-          </>
-        )}
+    await waitFor(() => {
+      expect(getByText('Error fetching animal data')).toBeTruthy();
+    });
+  });
 
-        <Button title="Add To Favorite" onPress={addToFavorites} />
-      </View>
-    </ScrollView>
+  it('calls insertFavoriteData with animalData when "Add To Favorite" is pressed', async () => {
 
-  );
-}
+    const mockAnimalData = {
+      title: 'Shoebill',
+      summary: 'The Shoebill is a large bird...',
+      thumbnail: 'https://example.com/shoebill.jpg',
+    };
 
-const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  summary: {
-    fontSize: 16,
-    marginVertical: 10,
-    textAlign: 'center',
-  },
-  image: {
-    width: 200,
-    height: 200,
-    marginTop: 20,
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 18,
-    marginTop: 20,
-  },
+    fetchWikipediaInfo.mockResolvedValueOnce(mockAnimalData);
+
+    const { getByText } = render(
+      <GlobalContext.Provider value={mockContextValue}>
+        <Animals route={route} navigation={mockNavigation} />
+      </GlobalContext.Provider>
+    );
+
+    await waitFor(() => {
+      expect(getByText('Shoebill')).toBeTruthy();
+    });
+
+    const addButton = getByText('Add To Favorite');
+    fireEvent.press(addButton);
+
+    expect(insertFavoriteData).toHaveBeenCalledWith(
+      expect.any(Object), // The database object
+      'Shoebill', // Title
+      'The Shoebill is a large bird...', // Summary
+      'https://example.com/shoebill.jpg', // Thumbnail
+      1 // User ID from mock context
+    );
+  });
 });
