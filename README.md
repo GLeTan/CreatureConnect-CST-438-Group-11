@@ -88,19 +88,27 @@ also worked on the User Context to get User Id across screens.
   + I learned the importance of keeping active branches up-to-date with main, such as by:
      + pulling from main regularly when working on a long-living branch. 
 
-### Team Member name
+### Ricardo Jose Nunez Lopez
 
-- [a link to your pull requests]()
-- [a link to your issues]()
+- [Ricardo's Pull Request's](https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/pulls?q=is%3Apr+is%3Aclosed+assignee%3AItzRikk)
+- [Ricardo's Issues](https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/issues?q=is%3Aissue+is%3Aclosed+assignee%3AItzRikk)
 
 #### What was your role / which stories did you work on
 
-+ What was the biggest challenge? 
++ What was the biggest challenge?
+   + The biggest challenge was getting the emulator to run in my mac and working with typescript specificaly making the naviagtor to work.
 + Why was it a challenge?
-  + How was the challenge addressed?
+   + This was difficult as I was initially because the emulator was crashing and giving a lot of error, and the naviagtor calls where just not working do to wrong calls and installing the right packages.
+   + We addressed the challenge by reviewing where the error could be coming from, such as:
+      + how I set up the emulator,
+      + how to install the right navigations call, or
+      + the instructions on how to implement the naviagtion.
 + Favorite / most interesting part of this project
+   + My favorite part of the project was learning on how to work with typescript becuase is a new language i have never learned and made me happy know I was making progress and teaching myself how to code in typescript.
 + If you could do it over, what would you change?
+  + If I could do this over, I would redo the project JS because i feel is more organice and easier to read and work on. 
 + What is the most valuable thing you learned?
+  + I learned the importance of asking help to my teammates and been able to learn a new language.
 
 ## Conclusion
 
