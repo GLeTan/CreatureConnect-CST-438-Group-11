@@ -65,19 +65,28 @@ also worked on the User Context to get User Id across screens.
 + What is the most valuable thing you learned?
    + I should ask for help or look for help
 
-### Team Member name
+### Arturo Cesareo-Zacarias
 
-- [a link to your pull requests]()
-- [a link to your issues]()
+- [Arturo's Pull Request's](https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/pulls?q=is%3Apr+is%3Aclosed+assignee%3Arumkkee)
+- [Arturo's Issues](https://github.com/GLeTan/CreatureConnect-CST-438-Group-11/issues?q=is%3Aclosed+assignee%3Arumkkee)
 
 #### What was your role / which stories did you work on
 
-+ What was the biggest challenge? 
++ What was the biggest challenge?
+   + The biggest challenge was getting a relevant API to successfully return information about animals.
 + Why was it a challenge?
-  + How was the challenge addressed?
+   + This was difficult as I was initially receiving an empty JSON response when calling the INaturalist API.
+   + We addressed the challenge by reviewing where the error could be coming from, such as:
+      + how I wrote the API call,
+      + how the API is being called in tests, or
+      + the instructions on using the API.
 + Favorite / most interesting part of this project
+   + My favorite part of the project was seeing the Search page finally return an image and description of an animal that was searched.
 + If you could do it over, what would you change?
+  + If I could do this over, I would review the instructions on using an API more carefully. 
 + What is the most valuable thing you learned?
+  + I learned the importance of keeping active branches up-to-date with main, such as by:
+     + pulling from main regularly when working on a long-living branch. 
 
 ### Team Member name
 
